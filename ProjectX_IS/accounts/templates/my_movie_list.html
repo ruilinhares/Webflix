@@ -6,14 +6,31 @@
 {% block content %}
     <div class="container">
       <h1>My movies list</h1>
+    <br>
+    <table class="w3-table">
 
       {% for movie in user.profile.movie_list.all %}
-
+        <td>
         <p>Title: {{ movie.title }}</p>
         <p>Direction: {{ movie.director }}</p>
         <p>Year: {{ movie.year }}</p>
         <p>Category: {{ movie.category }}</p>
+        <form action="{% url 'deletemovie' id=movie.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-default btn-sm">
+              <span class="glyphicon glyphicon-remove"></span> Remove
+            </button>
+        </form>
         <br>
+        </td>
+          {% if forloop.last %}
+             </tr>
+          {% else %}
+            {% if forloop.counter|divisibleby:"3" %}
+               </tr><tr>
+            {% endif %}
+          {% endif %}
     {% endfor %}
+    </table>
     </div>
 {% endblock %}

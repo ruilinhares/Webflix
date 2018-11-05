@@ -1,8 +1,23 @@
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from django.contrib.auth.models import User
 
 from accounts.models import Profile, Movie
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        exclude = ('email',)
+
+    username = forms.EmailField(max_length=64,
+                                help_text="The person's email address.")
+
+    def clean_email(self):
+        email = self.cleaned_data['username']
+        return email
+
 
 class CreateProfileForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
@@ -19,7 +34,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
 
 
 class EditUserForm(UserChangeForm):
@@ -42,8 +57,8 @@ class EditProfileForm(UserChangeForm):
 
 
 class SearchBarForm(forms.Form):
-    search = forms.CharField(required=False, label="",  widget=forms.TextInput(attrs={'placeholder': 'Search ..',
-                                                                                      'id': 'searchbar'}))
+    search = forms.CharField(required=False, label="", widget=forms.TextInput(attrs={'placeholder': 'Search ..',
+                                                                                     'id': 'searchbar'}))
 
 
 class SearchMovieFormAux(forms.Form):
@@ -57,7 +72,6 @@ class SearchMovieFormAux(forms.Form):
 
 
 class SearchMovieForm(forms.Form):
-
     CATEGORY_CHOICE = (
         ('', '----'),
         ('ACTION', 'Action'),
@@ -72,10 +86,12 @@ class SearchMovieForm(forms.Form):
         ('THRILLER', 'Thriller'),
     )
 
-    search_director = forms.CharField(required=False, label='Search director',  widget=forms.TextInput(attrs={'placeholder' : 'Director name..'}))
+    search_director = forms.CharField(required=False, label='Search director',
+                                      widget=forms.TextInput(attrs={'placeholder': 'Director name..'}))
 
     search_year_exact = forms.IntegerField(required=False, label='Search year (exact match)!')
     search_year_min = forms.IntegerField(required=False, label='Min year')
     search_year_max = forms.IntegerField(required=False, label='Max year')
 
-    search_category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORY_CHOICE, label='Search category')
+    search_category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORY_CHOICE,
+                                        label='Search category')
