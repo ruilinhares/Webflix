@@ -1,0 +1,49 @@
+.navbar-brand{
+    background: black;
+    color: red !important;
+}
+
+.nav{
+    background: black;
+    color: white !important;
+}
+
+.navbar{
+    background: black;
+    color: white !important;
+}
+
+body {
+    background-color: black;
+    font-family: Helvetica;
+    color: lightgray;
+}
+
+
+#searchbar {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: whitesmoke;
+    background-color: black;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    outline: none;
+}
+
+#searchbar:focus {
+    width: 100%;
+    border: 3px solid whitesmoke;
+}
+
+#searchbar:visited {
+    width: 100%;
+    border: 3px solid whitesmoke;
+}
+
+

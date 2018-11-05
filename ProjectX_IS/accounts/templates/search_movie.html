@@ -1,0 +1,41 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Search movie{% endblock %}
+
+{% block content %}
+    <div class="container">
+      <h1>Search</h1>
+        <form method="get">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button type="submit">Search</button>
+
+        </form>
+
+      {% for movie in movies %}
+        <br>
+          <li>
+            {{ movie.title }} ({{ movie.year }})
+            {% if movie in usermovies %}
+                <form action="{% url 'deletemovie' id=movie.id %}" method="POST">
+                {% csrf_token %}
+                    <button type="submit" class="btn btn-default btn-sm">
+                      <span class="glyphicon glyphicon-remove"></span> Remove
+                    </button>
+                </form>
+            {% else %}
+                <form action="{% url 'addmovie' id=movie.id %}" method="POST">
+                {% csrf_token %}
+                  <button type="submit" class="btn btn-default btn-sm">
+                  <span class="glyphicon glyphicon-plus"></span> Add
+                </button>
+                </form>
+            {% endif %}
+          </li>
+        <br>
+    {% endfor %}
+    </div>
+{% endblock %}
+
+</html>

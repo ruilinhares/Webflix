@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h2>Popular</h2>
+        <div class="row">
+
+        {% for movie in movies %}
+            {{ movie.title }} ({{ movie.year }}) |
+        {% endfor %}
+        </div>
+
+        <br>
+        <h2>Action</h2>
+        <div class="row">
+            {% for movie in movies %}
+                {% if movie.category == 'ACTION' %}
+                    {{ movie.title }} ({{ movie.year }}) |
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <br>
+        <h2>Adventure</h2>
+        <div class="row">
+            {% for movie in movies %}
+                {% if movie.category == 'ADVENTURE' %}
+                    {{ movie.title }} ({{ movie.year }}) |
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+
+{% block title %}My movies list{% endblock %}
+
+{% block content %}
+    <div class="container">
+      <h1>My movies list</h1>
+
+      {% for movie in user.profile.movie_list.all %}
+
+        <p>Title: {{ movie.title }}</p>
+        <p>Direction: {{ movie.director }}</p>
+        <p>Year: {{ movie.year }}</p>
+        <p>Category: {{ movie.category }}</p>
+        <br>
+    {% endfor %}
+    </div>
+{% endblock %}
