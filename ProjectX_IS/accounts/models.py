@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 
 class Movie(models.Model):
+    image = models.FileField(upload_to='static/', default='')
     title = models.CharField(max_length=50, default='')
     director = models.CharField(max_length=50, default='')
     year = models.IntegerField(default=1900)

@@ -13,7 +13,7 @@ class UserForm(forms.ModelForm):
         model = User
         exclude = ('email',)
 
-    username = forms.EmailField(max_length=64,
+    username = forms.EmailField(max_length=254,
                                 help_text="The person's email address.")
 
     def clean_email(self):
@@ -30,26 +30,74 @@ class CreateProfileForm(UserCreationForm):
 
 
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=True)
-    last_name = forms.CharField(max_length=30, required=True)
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    first_name = forms.CharField(max_length=30, label='', required=True,
+                                 widget=forms.TextInput(attrs={'placeholder': 'Firste name ..',
+                                                               'id': 'searchbar'}))
+    last_name = forms.CharField(max_length=30, label='', required=True,
+                                widget=forms.TextInput(attrs={'placeholder': 'Last name  ..',
+                                                              'id': 'searchbar'}))
+    username = forms.EmailField(max_length=254, required=True, label='',
+                                widget=forms.TextInput(attrs={'placeholder': 'Email ..',
+                                                              'id': 'searchbar'}))
+    password1 = forms.CharField(label='', required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Password ..',
+                                                                                           'id': 'searchbar'}))
+    password2 = forms.CharField(label='', required=True,
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Password confirmation ..',
+                                                                  'id': 'searchbar'}))
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
+        fields = ('username', 'first_name', 'last_name', 'password1', 'password2',)
+
+    def clean_email(self):
+        email = self.cleaned_data['username']
+        return email
 
 
-class EditUserForm(UserChangeForm):
+class EditUserForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30, label='', required=False,
+                                 widget=forms.TextInput(attrs={'placeholder': 'Firste name ..',
+                                                               'id': 'searchbar'}))
+    last_name = forms.CharField(max_length=30, label='', required=False,
+                                widget=forms.TextInput(attrs={'placeholder': 'Last name  ..',
+                                                              'id': 'searchbar'}))
+    username = forms.EmailField(max_length=254, required=False, label='',
+                                widget=forms.TextInput(attrs={'placeholder': 'Email ..',
+                                                              'id': 'searchbar'}))
+
     class Meta:
         model = User
+        fields = ('username', 'first_name', 'last_name')
+
+    def clean_email(self):
+        email = self.cleaned_data['username']
+        return email
+
+
+class ProfileForm(forms.ModelForm):
+    phone_number = forms.CharField(max_length=9, min_length=9, label='', required=True,
+                                   widget=forms.NumberInput(attrs={'placeholder': 'Phone number ..',
+                                                                   'id': 'searchbar', }))
+    card_number = forms.CharField(max_length=15, label='', required=True,
+                                  widget=forms.NumberInput(attrs={'placeholder': 'Credit card number ..',
+                                                                  'id': 'searchbar', }))
+
+    class Meta:
+        model = Profile
         fields = (
-            'first_name',
-            'last_name',
-            'email')
-        exclude = ('password',)
+            'phone_number',
+            'card_number',
+        )
 
 
-class EditProfileForm(UserChangeForm):
+class EditProfileForm(forms.ModelForm):
+    phone_number = forms.CharField(max_length=9, min_length=9, label='', required=False,
+                                   widget=forms.NumberInput(attrs={'placeholder': 'phone_number',
+                                                                   'id': 'searchbar', }))
+    card_number = forms.CharField(max_length=15, label='', required=False,
+                                  widget=forms.NumberInput(attrs={'placeholder': 'Credit card number ..',
+                                                                  'id': 'searchbar', }))
+
     class Meta:
         model = Profile
         fields = (
@@ -86,7 +134,9 @@ def year_choices():
 
 
 class SearchYearExactForm(forms.Form):
-    search_year_exact = forms.ChoiceField(choices=year_choices, required=False, widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}), label='')
+    search_year_exact = forms.ChoiceField(choices=year_choices, required=False,
+                                          widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
+                                          label='')
 
 
 class SearchCategoryForm(forms.Form):
@@ -111,5 +161,9 @@ class SearchCategoryForm(forms.Form):
 
 
 class SearchYearForm(forms.Form):
-    search_year_min = forms.ChoiceField(choices=year_choices, required=False, widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}), label='Min:')
-    search_year_max = forms.ChoiceField(choices=year_choices, required=False, widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}), label='Max:')
+    search_year_min = forms.ChoiceField(choices=year_choices, required=False,
+                                        widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
+                                        label='Min:')
+    search_year_max = forms.ChoiceField(choices=year_choices, required=False,
+                                        widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
+                                        label='Max:')

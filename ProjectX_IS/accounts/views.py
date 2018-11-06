@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from accounts.forms import EditProfileForm, EditUserForm, SearchMovieForm, SearchBarForm, SearchMovieForm, \
-    SignUpForm, SearchDirectorForm, SearchYearExactForm, SearchYearForm, SearchCategoryForm
+from accounts.forms import EditProfileForm, SearchMovieForm, SearchBarForm, SearchMovieForm, \
+    SignUpForm, SearchDirectorForm, SearchYearExactForm, SearchYearForm, SearchCategoryForm, ProfileForm, EditUserForm
 from accounts.models import Profile, Movie
 
 
@@ -16,16 +16,19 @@ from accounts.models import Profile, Movie
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
+        form_info = ProfileForm(request.POST)
         if form.is_valid():
+            email = form.clean_email()
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('homepage')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+        form_info = ProfileForm()
+    return render(request, 'signup.html', {'form': form, 'form_info': form_info})
 
 
 def delete_user(request, pk):
