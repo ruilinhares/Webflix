@@ -1,20 +1,25 @@
 
 {% extends 'base.html' %}
 
-{% block title %}My movies list{% endblock %}
+{% block title %}My List{% endblock %}
 
 {% block content %}
     <div class="container">
-      <h1>My movies list</h1>
+      <h1>My Movies</h1>
     <br>
-    <table class="w3-table">
+    <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
 
       {% for movie in user.profile.movie_list.all %}
-        <td>
-        <p>Title: {{ movie.title }}</p>
-        <p>Direction: {{ movie.director }}</p>
-        <p>Year: {{ movie.year }}</p>
-        <p>Category: {{ movie.category }}</p>
+        <td style=" border: 3px solid orangered">
+        <center>
+            <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+        <details>
+            <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+            <br>
+            <p><b>Direction: </b>{{ movie.director }}</p>
+            <p><b>Category: </b>{{ movie.category }}</p>
+        </details>
+            <br>
         <form action="{% url 'deletemovie' id=movie.id %}" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn btn-default btn-sm">
@@ -22,12 +27,13 @@
             </button>
         </form>
         <br>
+        </center>
         </td>
           {% if forloop.last %}
              </tr>
           {% else %}
             {% if forloop.counter|divisibleby:"3" %}
-               </tr><tr>
+               </tr><tr style="border-radius: 4px; border: 3px solid orangered" >
             {% endif %}
           {% endif %}
     {% endfor %}

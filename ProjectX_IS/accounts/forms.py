@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
@@ -61,19 +63,35 @@ class SearchBarForm(forms.Form):
                                                                                      'id': 'searchbar'}))
 
 
-class SearchMovieFormAux(forms.Form):
+class SearchMovieForm(forms.Form):
     TYPE_CHOICE = (
+        (0, 'Type Search ..'),
         (1, 'For a director'),
         (2, 'For a exact year'),
         (3, 'For a ragen of years'),
         (4, 'For category'),
     )
-    type = forms.ChoiceField(required=False, widget=forms.RadioSelect, choices=TYPE_CHOICE, label='Type search')
+    type = forms.ChoiceField(required=False, widget=forms.Select(attrs={'id': 'select'}), choices=TYPE_CHOICE, label='',
+                             initial=0, )
 
 
-class SearchMovieForm(forms.Form):
+class SearchDirectorForm(forms.Form):
+    search_director = forms.CharField(required=False, label='',
+                                      widget=forms.TextInput(attrs={'placeholder': 'Director name..',
+                                                                    'id': 'searchbar'}))
+
+
+def year_choices():
+    return [(r, r) for r in range(datetime.date.today().year, 1950, -1)]
+
+
+class SearchYearExactForm(forms.Form):
+    search_year_exact = forms.ChoiceField(choices=year_choices, required=False, widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}), label='')
+
+
+class SearchCategoryForm(forms.Form):
     CATEGORY_CHOICE = (
-        ('', '----'),
+        ('', 'Category ..'),
         ('ACTION', 'Action'),
         ('ADVENTURE', 'Adventure'),
         ('COMEDY', 'Comedy'),
@@ -86,12 +104,12 @@ class SearchMovieForm(forms.Form):
         ('THRILLER', 'Thriller'),
     )
 
-    search_director = forms.CharField(required=False, label='Search director',
-                                      widget=forms.TextInput(attrs={'placeholder': 'Director name..'}))
+    search_category = forms.ChoiceField(required=False,
+                                        widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
+                                        choices=CATEGORY_CHOICE,
+                                        label='')
 
-    search_year_exact = forms.IntegerField(required=False, label='Search year (exact match)!')
-    search_year_min = forms.IntegerField(required=False, label='Min year')
-    search_year_max = forms.IntegerField(required=False, label='Max year')
 
-    search_category = forms.ChoiceField(required=False, widget=forms.Select, choices=CATEGORY_CHOICE,
-                                        label='Search category')
+class SearchYearForm(forms.Form):
+    search_year_min = forms.ChoiceField(choices=year_choices, required=False, widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}), label='Min:')
+    search_year_max = forms.ChoiceField(choices=year_choices, required=False, widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}), label='Max:')

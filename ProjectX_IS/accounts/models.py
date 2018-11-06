@@ -20,7 +20,7 @@ class Movie(models.Model):
         ('HISTORY', 'History'),
         ('MYSTERY', 'Mystery'),
         ('ROMANCE', 'Romance'),
-        ('SCIENCE FICTION', 'Science fiction)'),
+        ('SCIENCE FICTION', 'Science fiction'),
         ('THRILLER', 'Thriller')
     )
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICE, default='')

@@ -5,9 +5,10 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-
-from accounts.forms import EditProfileForm, EditUserForm, SearchMovieForm, SearchBarForm, SearchMovieFormAux, SignUpForm
+from accounts.forms import EditProfileForm, EditUserForm, SearchMovieForm, SearchBarForm, SearchMovieForm, \
+    SignUpForm, SearchDirectorForm, SearchYearExactForm, SearchYearForm, SearchCategoryForm
 from accounts.models import Profile, Movie
+
 
 # Create your views here.
 
@@ -28,7 +29,6 @@ def signup(request):
 
 
 def delete_user(request, pk):
-
     user = User.objects.get(pk=pk)
     user.delete()
     messages.success(request, "The user is deleted")
@@ -90,49 +90,113 @@ def search_bar(request, pk=None):
     return render(request, 'search_bar.html', args)
 
 
-def search_movies(request, pk=None):
-    form_aux = SearchMovieFormAux(request.GET)
-    form = None
+def searche_director(request, pk=None):
+    form = SearchDirectorForm(request.GET)
+    movies = {}
+    if form.is_valid():
+        if form.cleaned_data['search_director']:
+            movies = Movie.objects.filter(director__icontains=form.data['search_director'])
 
-    movies = Movie.objects.all
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    usermovies = user.profile.movie_list.all()
+
+    args = {'form': form, 'movies': movies, 'usermovies': usermovies}
+    return render(request, 'search_movie.html', args)
+
+
+def searche_year_exact(request, pk=None):
+    form = SearchYearExactForm(request.GET)
+    movies = {}
+    if form.is_valid():
+        if form.cleaned_data['search_year_exact']:
+            movies = Movie.objects.filter(year__exact=form.cleaned_data['search_year_exact'])
+
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    usermovies = user.profile.movie_list.all()
+
+    args = {'form': form, 'movies': movies, 'usermovies': usermovies}
+    return render(request, 'search_movie.html', args)
+
+
+def searche_year(request, pk=None):
+    form = SearchYearForm(request.GET)
+    movies = {}
+    if form.is_valid():
+        if form.cleaned_data['search_year_min'] and form.cleaned_data['search_year_max']:
+            movies = Movie.objects.filter(year__gte=form.cleaned_data['search_year_min'],
+                                          year__lte=form.cleaned_data['search_year_max'])
+
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    usermovies = user.profile.movie_list.all()
+
+    args = {'form': form, 'movies': movies, 'usermovies': usermovies}
+    return render(request, 'search_movie.html', args)
+
+
+def searche_catgegory(request, pk=None):
+    form = SearchCategoryForm(request.GET)
+    movies = {}
+    if form.is_valid():
+        if form.cleaned_data['search_category']:
+            movies = Movie.objects.filter(category__exact=form.cleaned_data['search_category'])
+
     if pk:
         user = User.objects.get(pk=pk)
     else:
         user = request.user
 
-    if form_aux.is_valid():
-        form = SearchMovieForm(request.GET)
-        if form.is_valid():
-
-            if form.cleaned_data['search_director']:
-                movies = Movie.objects.filter(director__icontains=form.data['search_director'])
-            elif form.cleaned_data['search_year_exact']:
-                movies = Movie.objects.filter(year__exact=form.cleaned_data['search_year_exact'])
-            elif form.cleaned_data['search_year_min'] and form.cleaned_data['search_year_max']:
-                movies = Movie.objects.filter(year__gte=form.cleaned_data['search_year_min'], year__lte=form.cleaned_data['search_year_max'])
-            elif form.cleaned_data['search_category'] and form.cleaned_data['search_category'] != '':
-                movies = Movie.objects.filter(category__exact=form.cleaned_data['search_category'])
-
     usermovies = user.profile.movie_list.all()
 
-    args = {'formaux': form_aux, 'form': form, 'movies': movies, 'usermovies': usermovies}
-
+    args = {'form': form, 'movies': movies, 'usermovies': usermovies}
     return render(request, 'search_movie.html', args)
 
 
-def suggested_movies(request, pk=None):
+def search_movies(request):
+    form = {}
+    print(request.method)
 
+    if request.method == 'POST':
+        type = request.POST['type']
+        print(type)
+
+        if type == '1':
+            return redirect('searchdirector')
+
+        if type == '2':
+            return redirect('searchyearexact')
+
+        if type == '3':
+            return redirect('searchyear')
+
+        if type == '4':
+            return redirect('searchcategory')
+
+    else:
+        args = {'form': form}
+        return render(request, 'search_movie.html', args)
+
+
+def suggested_movies(request, pk=None):
     aux_movies = Movie.objects.all()
     list_c = list()
     i = 0
     for m in aux_movies:
         list_c.append([User.objects.filter(profile__movie_list=m).count(), i])
-        i+=1
+        i += 1
 
     list_c.sort()
     list_c.reverse()
     movies = list()
-    for a,b in list_c:
+    for a, b in list_c:
         movies.append(aux_movies[b])
 
     if pk:
@@ -163,4 +227,3 @@ def add_movie(request, id=None):
     path = request.META.get('HTTP_REFERER')
 
     return redirect(path)
-

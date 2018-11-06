@@ -6,31 +6,232 @@
     <div class="container">
         <br>
         <h2>Popular</h2>
-        <div class="row">
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
 
-        {% for movie in movies %}
-            {{ movie.title }} ({{ movie.year }}) |
+        {% for movie in movies|slice:":5"  %}
+            <td style=" border: 3px solid orangered">
+            <center>
+            <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+            <details>
+            <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+            <br>
+            <p><b>Direction: </b>{{ movie.director }}</p>
+            <p><b>Category: </b>{{ movie.category }}</p>
+            </details>
+            </center>
+            </td>
         {% endfor %}
-        </div>
+        </table>
 
         <br>
         <h2>Action</h2>
-        <div class="row">
-            {% for movie in movies %}
-                {% if movie.category == 'ACTION' %}
-                    {{ movie.title }} ({{ movie.year }}) |
-                {% endif %}
-            {% endfor %}
-        </div>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'ACTION' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
 
         <br>
         <h2>Adventure</h2>
-        <div class="row">
-            {% for movie in movies %}
-                {% if movie.category == 'ADVENTURE' %}
-                    {{ movie.title }} ({{ movie.year }}) |
-                {% endif %}
-            {% endfor %}
-        </div>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'ADVENTURE' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <br>
+        <h2>Comedy</h2>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'COMEDY' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <br>
+        <h2>Drama</h2>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'DRAMA' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <br>
+        <h2>Fantasy</h2>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'FANTASY' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <br>
+        <h2>History</h2>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'HISTORY' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <br>
+        <h2>Mystery</h2>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'MYSTERY' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <br>
+        <h2>Romance</h2>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'ROMANCE' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <br>
+        <h2>Science Fiction</h2>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'SCIENCE FICTION' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
+        <br>
+        <h2>Thriller</h2>
+        <table class="table" border="3px solid oragenred" style="border-radius: 4px; border: 3px solid orangered">
+
+        {% for movie in movies  %}
+            {% if movie.category == 'THRILLER' %}
+                <td style=" border: 3px solid orangered">
+                <center>
+                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                <details>
+                <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
+                <br>
+                <p><b>Direction: </b>{{ movie.director }}</p>
+                <p><b>Category: </b>{{ movie.category }}</p>
+                </details>
+                </center>
+                </td>
+            {% endif %}
+        {% endfor %}
+        </table>
+
     </div>
 {% endblock %}
