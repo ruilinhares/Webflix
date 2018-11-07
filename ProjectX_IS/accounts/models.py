@@ -1,10 +1,45 @@
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 # Create your models here.
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from apscheduler.schedulers.background import BackgroundScheduler as Scheduler
+from django.core.mail import send_mail
+
+from datetime import datetime, timedelta
+
+# Start the scheduler
+sched = Scheduler()
+sched.start()
+
+
+# Define the function that is to be executed
+def my_job():
+    print("payment verification...")
+    users = User.objects.all()
+    today = datetime.today()
+
+    emails = list()
+    for user in users:
+        if user.date_joined.day == today.day and user.date_joined.month != today.month:
+            user.date_joined = today
+            user.save()
+            emails.append(user.username)
+    print(emails)
+    if emails:
+        send_mail('Webflix payment',
+                  'Your payment has been processed successfully.\n\nBest regards,\nWeblifx',
+                  'email@gmail.com',
+                  emails)
+    run_day = today + timedelta(days=1)
+    print(run_day)
+    sched.add_job(my_job, next_run_time=run_day)
+
+
+today = datetime.today() + timedelta(0, 60)
+print(today)
+sched.add_job(my_job, next_run_time=today)
 
 
 class Movie(models.Model):
@@ -42,5 +77,3 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
-
-

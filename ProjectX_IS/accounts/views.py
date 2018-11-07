@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -77,6 +78,7 @@ def view_list_movies(request, pk=None):
 
 
 def search_bar(request, pk=None):
+
     form = SearchBarForm(request.GET)
     movies = list()
     if pk:
