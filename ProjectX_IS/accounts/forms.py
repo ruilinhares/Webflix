@@ -7,6 +7,12 @@ from django.contrib.auth.models import User
 
 from accounts.models import Profile, Movie
 
+ORDER_CHOICE = (
+    ('', 'Order ..'),
+    ('1', 'Ascending'),
+    ('2', 'Descending'),
+)
+
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -127,6 +133,10 @@ class SearchDirectorForm(forms.Form):
     search_director = forms.CharField(required=False, label='',
                                       widget=forms.TextInput(attrs={'placeholder': 'Director name..',
                                                                     'id': 'searchbar'}))
+    order = forms.ChoiceField(required=False,
+                              widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
+                              choices=ORDER_CHOICE,
+                              label='')
 
 
 def year_choices():
@@ -137,6 +147,11 @@ class SearchYearExactForm(forms.Form):
     search_year_exact = forms.ChoiceField(choices=year_choices, required=False,
                                           widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
                                           label='')
+
+    order = forms.ChoiceField(required=False,
+                              widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
+                              choices=ORDER_CHOICE,
+                              label='')
 
 
 class SearchCategoryForm(forms.Form):
@@ -158,6 +173,10 @@ class SearchCategoryForm(forms.Form):
                                         widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
                                         choices=CATEGORY_CHOICE,
                                         label='')
+    order = forms.ChoiceField(required=False,
+                              widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
+                              choices=ORDER_CHOICE,
+                              label='')
 
 
 class SearchYearForm(forms.Form):
@@ -167,3 +186,8 @@ class SearchYearForm(forms.Form):
     search_year_max = forms.ChoiceField(choices=year_choices, required=False,
                                         widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
                                         label='Max:')
+
+    order = forms.ChoiceField(required=False,
+                              widget=forms.Select(attrs={'onChange': 'form.submit();', 'id': 'select'}),
+                              choices=ORDER_CHOICE,
+                              label='')

@@ -100,8 +100,12 @@ def searche_director(request, pk=None):
     movies = {}
     if form.is_valid():
         if form.cleaned_data['search_director']:
-            movies = Movie.objects.filter(director__icontains=form.data['search_director'])
-
+            if form.cleaned_data['order'] == '1':
+                movies = Movie.objects.filter(director__icontains=form.data['search_director']).order_by('title')
+            elif form.cleaned_data['order'] == '2':
+                movies = Movie.objects.filter(director__icontains=form.data['search_director']).order_by('title').reverse()
+            else:
+                movies = Movie.objects.filter(director__icontains=form.data['search_director'])
     if pk:
         user = User.objects.get(pk=pk)
     else:
@@ -117,7 +121,12 @@ def searche_year_exact(request, pk=None):
     movies = {}
     if form.is_valid():
         if form.cleaned_data['search_year_exact']:
-            movies = Movie.objects.filter(year__exact=form.cleaned_data['search_year_exact'])
+            if form.cleaned_data['order'] == '1':
+                movies = Movie.objects.filter(year__exact=form.cleaned_data['search_year_exact']).order_by('title')
+            elif form.cleaned_data['order'] == '2':
+                movies = Movie.objects.filter(year__exact=form.cleaned_data['search_year_exact']).order_by('title').reverse()
+            else:
+                movies = Movie.objects.filter(year__exact=form.cleaned_data['search_year_exact'])
 
     if pk:
         user = User.objects.get(pk=pk)
@@ -134,8 +143,16 @@ def searche_year(request, pk=None):
     movies = {}
     if form.is_valid():
         if form.cleaned_data['search_year_min'] and form.cleaned_data['search_year_max']:
-            movies = Movie.objects.filter(year__gte=form.cleaned_data['search_year_min'],
-                                          year__lte=form.cleaned_data['search_year_max'])
+            if form.cleaned_data['order'] == '1':
+                movies = Movie.objects.filter(year__gte=form.cleaned_data['search_year_min'],
+                                              year__lte=form.cleaned_data['search_year_max']).order_by('title')
+            elif form.cleaned_data['order'] == '2':
+                movies = Movie.objects.filter(year__gte=form.cleaned_data['search_year_min'],
+                                              year__lte=form.cleaned_data['search_year_max']).order_by('title').reverse()
+            else:
+                movies = Movie.objects.filter(year__gte=form.cleaned_data['search_year_min'],
+                                              year__lte=form.cleaned_data['search_year_max'])
+
 
     if pk:
         user = User.objects.get(pk=pk)
@@ -152,7 +169,13 @@ def searche_catgegory(request, pk=None):
     movies = {}
     if form.is_valid():
         if form.cleaned_data['search_category']:
-            movies = Movie.objects.filter(category__exact=form.cleaned_data['search_category'])
+            if form.cleaned_data['order'] == '1':
+                movies = Movie.objects.filter(category__exact=form.cleaned_data['search_category']).order_by('title')
+            elif form.cleaned_data['order'] == '2':
+                movies = Movie.objects.filter(category__exact=form.cleaned_data['search_category']).order_by('title').reverse()
+            else:
+                movies = Movie.objects.filter(category__exact=form.cleaned_data['search_category'])
+
 
     if pk:
         user = User.objects.get(pk=pk)
@@ -167,12 +190,9 @@ def searche_catgegory(request, pk=None):
 
 def search_movies(request):
     form = {}
-    print(request.method)
 
     if request.method == 'POST':
         type = request.POST['type']
-        print(type)
-
         if type == '1':
             return redirect('searchdirector')
 
