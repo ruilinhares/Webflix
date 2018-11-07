@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('profile/', views.view_profile, name='profile'),
     path('profile/edit', views.edit_profile, name='editprofile'),
+    path('profile/edit/delete', views.delete_user, name='delete'),
     path('movie/mymovies', views.view_list_movies, name='movielist'),
     path('movie/searchbar', views.search_bar, name='searchbar'),
     path('movie/search', views.search_movies, name='searchmovie'),

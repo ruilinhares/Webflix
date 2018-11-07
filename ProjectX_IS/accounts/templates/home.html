@@ -6,8 +6,12 @@
 
     {% if user.is_authenticated %}
         <br>
-        <h2>Welcome to webflix {{ user.first_name }} {{ user.last_name }}!</h2>
-        <a target="_blank"  href= "{% url 'homepage' %}">Home Page</a>
+        <br>
+        <center>
+        <h1 style="color: whitesmoke; font-size: 450% ">{{ user.first_name }} {{ user.last_name }} welcome to</h1>
+        <br>
+        <img src="/static/wb.jpg" style="width: 80%;height: 50%;">
+        </center>
 
     {% else %}
         <br>

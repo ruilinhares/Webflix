@@ -23,6 +23,7 @@
                 <p style="font-size: 10px;"><b>Direction: </b>{{ movie.director }}</p>
                 <p style="font-size: 10px;"><b>Category: </b>{{ movie.category }}</p>
             </details>
+            <br>
             {% if movie in usermovies %}
                 <form action="{% url 'deletemovie' id=movie.id %}" method="POST">
                 {% csrf_token %}

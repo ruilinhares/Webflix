@@ -10,7 +10,11 @@
       {% for movie in user.profile.movie_list.all %}
         <td style=" border: 3px solid orangered">
         <center>
-            <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+            {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
         <details>
             <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
             <br>

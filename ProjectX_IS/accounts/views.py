@@ -31,12 +31,12 @@ def signup(request):
     return render(request, 'signup.html', {'form': form, 'form_info': form_info})
 
 
-def delete_user(request, pk):
-    user = User.objects.get(pk=pk)
+def delete_user(request):
+    user = User.objects.get(pk=request.user.pk)
     user.delete()
     messages.success(request, "The user is deleted")
 
-    return render(request, 'home.html')
+    return redirect('home')
 
 
 def view_profile(request, pk=None):
@@ -58,9 +58,11 @@ def edit_profile(request):
             profile_form.save()
             return redirect(reverse('profile'))
     else:
+        user = request.user
         user_form = EditUserForm(instance=request.user)
         profile_form = EditProfileForm(instance=request.user.profile)
-        args = {'user_form': user_form,
+        args = {
+                'user_form': user_form,
                 'profile_form': profile_form}
         return render(request, 'editprofile.html', args)
 

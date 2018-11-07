@@ -25,13 +25,18 @@
           {% for movie in movies %}
             <td style=" border: 3px solid orangered">
             <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
             <details>
                 <summary style="font-size: 12px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
                 <p style="font-size: 10px;"><b>Direction: </b>{{ movie.director }}</p>
                 <p style="font-size: 10px;"><b>Category: </b>{{ movie.category }}</p>
             </details>
+            <br>
             {% if movie in usermovies %}
                 <form action="{% url 'deletemovie' id=movie.id %}" method="POST">
                 {% csrf_token %}

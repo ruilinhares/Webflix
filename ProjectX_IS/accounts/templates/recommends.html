@@ -9,7 +9,11 @@
         {% for movie in movies|slice:":5"  %}
             <td style=" border: 3px solid orangered">
             <center>
-            <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+            {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
             <details>
             <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
             <br>
@@ -29,7 +33,11 @@
             {% if movie.category == 'ACTION' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                    {% if movie.image %}
+                        <img height="200" width="150" src="/{{ movie.image }}">
+                    {% else %}
+                        <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                    {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -50,7 +58,11 @@
             {% if movie.category == 'ADVENTURE' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -71,7 +83,11 @@
             {% if movie.category == 'COMEDY' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -92,7 +108,11 @@
             {% if movie.category == 'DRAMA' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -114,7 +134,11 @@
             {% if movie.category == 'FANTASY' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -135,7 +159,11 @@
             {% if movie.category == 'HISTORY' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -156,7 +184,11 @@
             {% if movie.category == 'MYSTERY' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -177,7 +209,11 @@
             {% if movie.category == 'ROMANCE' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -198,7 +234,11 @@
             {% if movie.category == 'SCIENCE FICTION' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>
@@ -219,7 +259,11 @@
             {% if movie.category == 'THRILLER' %}
                 <td style=" border: 3px solid orangered">
                 <center>
-                <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% if movie.image %}
+                    <img height="200" width="150" src="/{{ movie.image }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-film" style="font-size: 90px;"></span>
+                {% endif %}
                 <details>
                 <summary style="font-size: 14px;">{{ movie.title }} ({{ movie.year }})</summary>
                 <br>

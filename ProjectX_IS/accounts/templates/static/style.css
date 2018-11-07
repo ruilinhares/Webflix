@@ -83,3 +83,7 @@ body {
     color: black;
     font-family: Verdana;
 }
+
+.table.td{
+    width: fit-content;
+}
